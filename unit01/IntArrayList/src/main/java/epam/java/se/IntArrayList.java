@@ -19,13 +19,15 @@ public class IntArrayList {
     }
 
     public void add(int value) {
-        ensureCapasity(size + 1);
+        ensureCapacity(size + 1);
         data[size] = value;
         size += 1;
     }
-    public int[] getData(){
+
+    public int[] getData() {
         return this.data;
     }
+
     public int get(int i) {
         if (i < 0 || i >= size) {
             throw new IndexOutOfBoundsException();
@@ -35,13 +37,6 @@ public class IntArrayList {
 
     public int getSize() {
         return size;
-    }
-
-    public int maxValueInefficient() {
-        if (size == 0) {
-            throw new NoSuchElementException();
-        }
-        return maxValueRec(data, 0, size);
     }
 
     private int maxValueRec(int[] data, int startInclusive, int endExlusive) {
@@ -161,7 +156,7 @@ public class IntArrayList {
 
     private static void merger(int[] data, int startInclusive, int mid, int endExclusive, int[] free) {
         int length = endExclusive - startInclusive;
-        System.arraycopy(data, startInclusive, free, startInclusive, endExclusive - startInclusive);
+        System.arraycopy(data, startInclusive, free, startInclusive, length);
         int i = startInclusive;
         int j = mid;
         for (int k = startInclusive; k < endExclusive; k++) {
@@ -173,12 +168,12 @@ public class IntArrayList {
 
     }
 
-    private void ensureCapasity(int requiredCapacity) {
+    private void ensureCapacity(int requiredCapacity) {
         if (requiredCapacity <= getCapacity()) {
             return;
         }
-        final int newCapasity = Math.max(requiredCapacity, (getCapacity() * 3) / 2 + 1);
-        data = Arrays.copyOf(data, newCapasity);
+        final int newCapacity = Math.max(requiredCapacity, (getCapacity() * 3) / 2 + 1);
+        data = Arrays.copyOf(data, newCapacity);
     }
 
     private int getCapacity() {
