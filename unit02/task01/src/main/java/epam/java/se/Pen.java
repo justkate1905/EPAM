@@ -9,7 +9,7 @@ public class Pen {
     public Pen() {
         this.colorOfInk = "Blue";
         this.thicknessOfLine = 0.5F;
-        this.type = "mechanic";
+        this.type = "simple";
         this.price = 50L;
     }
 
@@ -19,13 +19,13 @@ public class Pen {
                 throw new IllegalArgumentException("Input thickness is less then possible!");
             } else if(_price <= 0L) {
                 throw new IllegalArgumentException("Input price have to be positive");
-            } else if(!_type.equals("") && _type != null) {
+            } else if(_type.equals("") || _type != null) {
+                throw new IllegalArgumentException("Type of pen can\'t be empty!");
+            } else {
                 this.colorOfInk = _colorOfInk;
                 this.thicknessOfLine = _thicknessOfLine;
                 this.type = _type;
                 this.price = _price;
-            } else {
-                throw new IllegalArgumentException("Type of pen can\'t be empty!");
             }
         } else {
             throw new IllegalArgumentException("Illegal color of ink! It have to be not empty");
