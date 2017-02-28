@@ -6,4 +6,11 @@ package epam.java.se;
 public abstract class StationeryItem {
     public long price;
     public String nameOfItem;
+
+    public long getPrice(){
+        return getPrice();
+    }
+    public String getNameOfItem(){
+        return nameOfItem;
+    }
 }
