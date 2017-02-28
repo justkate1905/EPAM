@@ -39,4 +39,27 @@ public class Pen extends StationeryItem {
         }
     }
 
+    public String getColorOfInk() {
+        return colorOfInk;
+    }
+
+    public float getThicknessOfLine() {
+        return thicknessOfLine;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setColorOfInk(String colorOfInk) {
+        this.colorOfInk = colorOfInk;
+    }
+
+    public void setThicknessOfLine(float thicknessOfLine) {
+        this.thicknessOfLine = thicknessOfLine;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

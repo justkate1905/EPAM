@@ -33,4 +33,20 @@ public class Pencil extends StationeryItem {
             hardness = _hardness;
         }
     }
+
+    public String getColor() {
+        return color;
+    }
+
+    public String getHardness() {
+        return hardness;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setHardness(String hardness) {
+        this.hardness = hardness;
+    }
 }

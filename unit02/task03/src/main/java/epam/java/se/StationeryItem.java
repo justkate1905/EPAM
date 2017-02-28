@@ -13,4 +13,10 @@ public abstract class StationeryItem {
     public String getNameOfItem(){
         return nameOfItem;
     }
+    public void setPrice(long price) {
+        this.price = price;
+    }
+    public void setNameOfItem(String nameOfItem) {
+        this.nameOfItem = nameOfItem;
+    }
 }

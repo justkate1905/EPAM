@@ -34,4 +34,28 @@ public class NoteBook extends StationeryItem {
             numberOfPages = _numberOfPages;
         }
     }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public void setNumberOfPages(int numberOfPages) {
+        this.numberOfPages = numberOfPages;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public int getNumberOfPages() {
+        return numberOfPages;
+    }
 }

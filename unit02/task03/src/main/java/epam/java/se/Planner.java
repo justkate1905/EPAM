@@ -31,4 +31,12 @@ public class Planner extends NoteBook {
             numberOfPages = _numberOfPages;
         }
     }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getYear() {
+        return year;
+    }
 }
