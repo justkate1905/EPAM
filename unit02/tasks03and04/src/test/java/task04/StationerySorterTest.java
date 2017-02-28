@@ -28,5 +28,34 @@ public class StationerySorterTest extends TestCase  {
         }
 
     }
+    @Test
+    public void testSortByName(){
+        StarterStationeryKit kit = new StarterStationeryKit();
+        List<StationeryItem> listToSort = kit.getStarterKit();
 
+        sorter.sortByName(listToSort);
+
+        for (int i =0; i<listToSort.size()-1; i++){
+            StationeryItem currentItem = listToSort.get(i);
+            StationeryItem nextItem = listToSort.get(i+1);
+            assertTrue(currentItem.getNameOfItem().compareTo(nextItem.getNameOfItem())<=0);
+        }
+    }
+    @Test
+    public void testSortByCostAndName(){
+        StarterStationeryKit kit = new StarterStationeryKit();
+        List<StationeryItem> listToSort = kit.getStarterKit();
+
+        sorter.sortByCostAndName(listToSort);
+
+        for (int i =0; i<listToSort.size()-1; i++){
+            StationeryItem currentItem = listToSort.get(i);
+            StationeryItem nextItem = listToSort.get(i+1);
+
+            boolean byCost = currentItem.getPrice() <= nextItem.getPrice();
+            boolean byName =currentItem.getNameOfItem().compareTo(nextItem.getNameOfItem())<=0;
+
+            assertTrue(byCost||byName);
+        }
+    }
 }
