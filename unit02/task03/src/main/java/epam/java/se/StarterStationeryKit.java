@@ -15,6 +15,8 @@ public class StarterStationeryKit {
         starterKit.add(new Pen());
         starterKit.add(new Planner());
         starterKit.add(new Pencil());
-
+    }
+    public ArrayList<StationeryItem> getStarterKit(){
+        return starterKit;
     }
 }
