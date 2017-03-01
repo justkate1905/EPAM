@@ -3,6 +3,8 @@ import task03.*;
 import junit.framework.TestCase;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -16,8 +18,7 @@ public class StationerySorterTest extends TestCase  {
     @Test
     public void testSortByCost(){
         StarterStationeryKit kit = new StarterStationeryKit();
-        List<StationeryItem> listToSort = kit.getStarterKit();
-
+        List<StationeryItem> listToSort = new ArrayList<StationeryItem>(kit.getStarterKit());
         sorter.sortByCost(listToSort);
 
         for (int i =0; i <listToSort.size()-1; i++){
@@ -31,7 +32,7 @@ public class StationerySorterTest extends TestCase  {
     @Test
     public void testSortByName(){
         StarterStationeryKit kit = new StarterStationeryKit();
-        List<StationeryItem> listToSort = kit.getStarterKit();
+        List<StationeryItem> listToSort = new ArrayList<StationeryItem>(kit.getStarterKit());
 
         sorter.sortByName(listToSort);
 
@@ -44,7 +45,7 @@ public class StationerySorterTest extends TestCase  {
     @Test
     public void testSortByCostAndName(){
         StarterStationeryKit kit = new StarterStationeryKit();
-        List<StationeryItem> listToSort = kit.getStarterKit();
+        List<StationeryItem> listToSort = new ArrayList<StationeryItem>(kit.getStarterKit());
 
         sorter.sortByCostAndName(listToSort);
 
