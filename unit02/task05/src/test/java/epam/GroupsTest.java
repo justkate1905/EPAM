@@ -3,11 +3,13 @@ package epam;
 import junit.framework.TestCase;
 import org.junit.jupiter.api.Test;
 
+import java.util.*;
+
 import static epam.Disciplines.*;
 
 
 class GroupsTest extends TestCase {
-
+    Groups groups = new Groups();
     Student John = new Student("John");
     Student Steve = new Student("Steve");
     Student Mark = new Student("Mark");
@@ -19,20 +21,58 @@ class GroupsTest extends TestCase {
     Group math = new Group(Disciplines.MATHEMATICS,"Y124");
     Group programming = new Group(Disciplines.PROGRAMMING,"Y125");
 
+    public Groups testDataCreating(){
+        Groups groups = new Groups();
+        groups.addGroups(english,math,programming);
+
+        Mark.addDiscipline(ENGLISH, MATHEMATICS, PHYSIC);
+        John.addDiscipline(PROGRAMMING, PSYCHOLOGY);
+        Steve.addDiscipline(HISTORY, MATHEMATICS);
+        Helen.addDiscipline(PROGRAMMING, PSYCHOLOGY, PHYSIC);
+        Dean.addDiscipline(HISTORY, MATHEMATICS, ENGLISH);
+        Stan.addDiscipline(ENGLISH, MATHEMATICS, PHYSIC);
+
+        groups.addStudents(Mark,John,Steve,Helen,Dean,Stan);
+        return groups;
+    }
+    public void testAddingMarks(){
+        Mark.addDisciplineWithMark(ENGLISH, new IntegerMark(5),new IntegerMark(6),new IntegerMark(8));
+        Dean.addDisciplineWithMark(ENGLISH,new IntegerMark(6),new IntegerMark(9));
+        Stan.addDisciplineWithMark(ENGLISH, new IntegerMark(10),new IntegerMark(7),new IntegerMark(5));
+    }
+
+    public void printStatistic(Map<Student, Double> statistic){
+        StringBuilder sb = new StringBuilder();
+
+        Iterator<Map.Entry<Student, Double>> iter = statistic.entrySet().iterator();
+
+        while (iter.hasNext()) {
+            Map.Entry<Student, Double> entry = iter.next();
+            sb.append(entry.getKey().getName());
+            sb.append(':').append('"');
+            sb.append(entry.getValue());
+            sb.append('"');
+            if (iter.hasNext()) {
+                sb.append(',').append('\n');
+            }
+        }
+        System.out.println(sb.toString());
+    }
 
     @Test
     public void testCreatingStudentsAndAddingRightTypeOfMarks() {
-        John.addDisciplineWithMark(ENGLISH, new IntegerMark(5));
-        John.addDisciplineWithMark(Disciplines.MATHEMATICS, new DoubleMark(2.5));
-        assertTrue(John.getMarks().containsKey(ENGLISH));
-        assertTrue(John.getMarks().containsKey(Disciplines.MATHEMATICS));
+        John.addDisciplineWithMark(PSYCHOLOGY, new IntegerMark(5));
+        John.addDisciplineWithMark(MATHEMATICS, new DoubleMark(2.5));
+
+        assertTrue(John.getMarks().containsKey(PSYCHOLOGY));
+        assertTrue(John.getMarks().containsKey(MATHEMATICS));
 
     }
     @Test
     public void testAddingWrongTypeOfMarksWithException() {
         DoubleMark d = new DoubleMark(4.5);
         try {
-            John.addDisciplineWithMark(ENGLISH,d);
+            John.addDisciplineWithMark(PSYCHOLOGY,d);
         }
         catch (IllegalArgumentException e){
             assertTrue(e.getMessage().equals("Type of mark doesn't match to the discipline"));
@@ -41,32 +81,43 @@ class GroupsTest extends TestCase {
 
     @Test
     public void testThatWeCanFormGroupOnlyByOneDiscipline(){
-        Mark.addDisciplineWithMark(Disciplines.MATHEMATICS, new DoubleMark(7.0));
+        Mark.addDisciplineWithMark(MATHEMATICS, new DoubleMark(7.0));
+        John.addDisciplineWithMark(PSYCHOLOGY, new IntegerMark(5));
+        Steve.addDisciplineWithMark(HISTORY, new IntegerMark(7));
 
-        John.addDisciplineWithMark(ENGLISH, new IntegerMark(5));
-        Steve.addDisciplineWithMark(ENGLISH, new IntegerMark(7));
+        math.addStudent(John,Mark,Steve);
 
-        Group english = new Group(ENGLISH,"Y123");
+        assertTrue(math.getStudents().contains(Mark));
+        assertFalse(math.getStudents().contains(Steve));
 
-        english.addStudent(John, Steve,Mark);
-        assertTrue(english.getStudents().contains(John));
-
-        assertFalse(english.getStudents().contains(Mark));
     }
 
     @Test
     public void testWeCanSearchGroupsForStudents(){
-        Groups groups = new Groups();
-        groups.addGroups(english,math,programming);
+        Groups newGroup = testDataCreating();
+        assertTrue(newGroup.findStudentGroups(Stan).contains(english));
+    }
 
-        Mark.addDiscipline(ENGLISH, MATHEMATICS, PHYSIC);
-        John.addDiscipline(PROGRAMMING, MATHEMATICS, PSYCHOLOGY);
-        Steve.addDiscipline(HISTORY, MATHEMATICS);
-        Helen.addDiscipline(PROGRAMMING, PSYCHOLOGY, PHYSIC);
-        Dean.addDiscipline(HISTORY, MATHEMATICS, PHYSIC);
-        Stan.addDiscipline(ENGLISH, MATHEMATICS, PHYSIC);
+    @Test
+    public void testForFindingGroupsForStudentsAndCompareTheirMarks(){
+        Groups groups = testDataCreating();
+        testAddingMarks();
 
-        groups.addStudents(Mark,John,Steve,Helen,Dean,Stan);
-        assertTrue(groups.findStudentGroups(Stan).contains(english));
+        List<Group> groupsForStudent = groups.findStudentGroups(Mark);
+        Map<Student, Double> statisticForGroup = new HashMap<Student, Double>();
+
+        Map<Disciplines, Map<Student, Double>> averageStatistic = new HashMap<Disciplines, Map<Student, Double>>();
+
+        for(Group g:groupsForStudent){
+            for(Student s: g.getStudents()){
+                statisticForGroup.put(s,s.calculateAverage(g.getDisciplines()));
+            }
+            averageStatistic.put(g.getDisciplines(),statisticForGroup);
+        }
+
+        printStatistic(averageStatistic.get(MATHEMATICS));
+
+        assertEquals(averageStatistic.get(ENGLISH).get(Mark), Mark.calculateAverage(ENGLISH));
+
     }
 }

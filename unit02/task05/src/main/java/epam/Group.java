@@ -1,13 +1,14 @@
 package epam;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
  * Created by Katerina on 02.03.2017.
  */
 public class Group {
-    private Disciplines d;
+    private Disciplines disciplines;
     private String name;
     private String groupID;
     private List<Student> students;
@@ -16,7 +17,7 @@ public class Group {
 
     }
     public Group(Disciplines _d, String _groupID){
-        d = _d;
+        disciplines = _d;
         name = _d.name;
         groupID = _groupID;
         students = new ArrayList<Student>();
@@ -24,12 +25,12 @@ public class Group {
 
     public void addStudent(Student ... student){
         for(Student s: student){
-            if(s.getMarks().containsKey(d)){
+            if(s.getMarks().containsKey(disciplines)){
                 students.add(s);
             }
         }
     }
-    public boolean isContainsStudent(Student student){
+    public boolean containsStudent(Student student){
         return students.contains(student);
     }
 
@@ -45,4 +46,7 @@ public class Group {
         return new ArrayList<Student>(students);
     }
 
+    public Disciplines getDisciplines() {
+        return disciplines;
+    }
 }

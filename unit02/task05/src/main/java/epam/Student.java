@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Created by Katerina on 01.03.2017.
  */
-public class Student {
+public class Student{
     private String name;
     private Map<Disciplines, List<Mark<? extends Number>>> marks;
 
@@ -17,6 +17,17 @@ public class Student {
         name = _name;
         marks = new HashMap<Disciplines, List<Mark<? extends Number>>>();
     }
+    public double calculateAverage(Disciplines d){
+        double result = 0d;
+        if(!marks.isEmpty()) {
+            for (Mark m : marks.get(d)) {
+                result += m.getMark().doubleValue();
+            }
+            return result/marks.size();
+        }
+        return result;
+    }
+
 
     public void addDiscipline(Disciplines ... disciplines){
         List<Mark<? extends Number>> newMarks = new ArrayList<Mark<? extends Number>>();

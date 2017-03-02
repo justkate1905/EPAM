@@ -27,7 +27,7 @@ public class Groups {
     public List<Group> findStudentGroups(Student student){
         List<Group> studentGroups = new ArrayList<Group>();
         for(Group g: groups){
-            if(g.isContainsStudent(student)){
+            if(g.containsStudent(student)){
                 studentGroups.add(g);
             }
         }
