@@ -29,13 +29,8 @@ public class Group {
             }
         }
     }
-
-    public boolean isContainsStudent(String name){
-        for(Student s:students){
-            if(s.getName().equals(name))
-                return true;
-        }
-        return false;
+    public boolean isContainsStudent(Student student){
+        return students.contains(student);
     }
 
     public String getName() {

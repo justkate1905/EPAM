@@ -9,10 +9,25 @@ import java.util.List;
 public class Groups {
     private List<Group> groups;
 
-    public List<Group> findStudentGroups(String name){
+    public Groups(){
+        groups = new ArrayList<Group>();
+    }
+
+    public void addGroups(Group ... group){
+        for(Group g : group){
+            groups.add(g);
+        }
+    }
+
+    public void addStudents(Student ... students){
+        for(Group g : groups){
+            g.addStudent(students);
+        }
+    }
+    public List<Group> findStudentGroups(Student student){
         List<Group> studentGroups = new ArrayList<Group>();
         for(Group g: groups){
-            if(g.isContainsStudent(name)){
+            if(g.isContainsStudent(student)){
                 studentGroups.add(g);
             }
         }
