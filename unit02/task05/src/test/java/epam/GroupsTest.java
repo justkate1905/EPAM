@@ -9,7 +9,6 @@ import static epam.Disciplines.*;
 
 
 class GroupsTest extends TestCase {
-    Groups groups = new Groups();
     Student John = new Student("John");
     Student Steve = new Student("Steve");
     Student Mark = new Student("Mark");
