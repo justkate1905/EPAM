@@ -7,6 +7,7 @@ import java.util.List;
  * Created by Katerina on 02.03.2017.
  */
 public class Group {
+    private Disciplines d;
     private String name;
     private String groupID;
     private List<Student> students;
@@ -14,14 +15,19 @@ public class Group {
     public Group(){
 
     }
-    public Group(String _name, String _groupID){
-        name = _name;
+    public Group(Disciplines _d, String _groupID){
+        d = _d;
+        name = _d.name;
         groupID = _groupID;
         students = new ArrayList<Student>();
     }
 
-    public void addStudent(Student student){
-        students.add(student);
+    public void addStudent(Student ... student){
+        for(Student s: student){
+            if(s.getMarks().containsKey(d)){
+                students.add(s);
+            }
+        }
     }
 
     public boolean isContainsStudent(String name){
