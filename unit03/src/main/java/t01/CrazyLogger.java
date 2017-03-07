@@ -26,14 +26,14 @@ public class CrazyLogger {
         log.append(formatter.format(current))
                 .append(" - ")
                 .append(message)
-                .append(";");
+                .append(";\n");
     }
 
     public List<String> getMessagesByDate(String date) {
         List<String> messages = new ArrayList<String>();
         int lastIndex = log.lastIndexOf(date,0);
         while(lastIndex!=-1){
-            messages.add(log.substring(lastIndex,log.indexOf(";",lastIndex)));
+            messages.add(log.substring(lastIndex,log.indexOf(";\n",lastIndex)));
         }
         return messages;
     }
