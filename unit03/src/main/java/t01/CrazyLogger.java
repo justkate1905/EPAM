@@ -2,6 +2,8 @@ package t01;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Katerina on 06.03.2017.
@@ -27,7 +29,12 @@ public class CrazyLogger {
                 .append(";");
     }
 
-    public String getMessageByDate(String date) {
-        
+    public List<String> getMessagesByDate(String date) {
+        List<String> messages = new ArrayList<String>();
+        int lastIndex = log.lastIndexOf(date,0);
+        while(lastIndex!=-1){
+            messages.add(log.substring(lastIndex,log.indexOf(";",lastIndex)));
+        }
+        return messages;
     }
 }
