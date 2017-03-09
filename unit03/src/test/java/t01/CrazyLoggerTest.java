@@ -33,6 +33,11 @@ public class CrazyLoggerTest extends TestCase {
         assertTrue(lastElement.contains(message));
 
     }
+    @Test
+    public void testGettingMessageByNotExistingDate(){
+        List<String> logMessagesByDate = logger.getMessagesByDate("04-03-2017");
+        assertTrue(logMessagesByDate.isEmpty());
+    }
 
 
 }
