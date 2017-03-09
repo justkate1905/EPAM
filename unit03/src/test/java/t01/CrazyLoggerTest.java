@@ -18,12 +18,20 @@ public class CrazyLoggerTest extends TestCase {
         String message = "New message to logging";
         logger.addMessageToLog(message);
         String logMessage = logger.getLastMessage();
-        System.out.println(logMessage);
+        assertTrue("Message was added. Returning of the right message is : ",logMessage.contains("New message to logging"));
     }
 
     @Test
     public void testGettingMessageByDate(){
-        List<String> logMessagesByDate = logger.getMessagesByDate("");
+        final String message = "Message for test";
+        logger.addMessageToLog(message);
+
+        List<String> logMessagesByDate = logger.getMessagesByDate("09-03-2017");
+        assertFalse(logMessagesByDate.isEmpty());
+
+        String lastElement =logMessagesByDate.get(logMessagesByDate.size()-1);
+        assertTrue(lastElement.contains(message));
+
     }
 
 

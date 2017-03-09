@@ -31,9 +31,13 @@ public class CrazyLogger {
 
     public List<String> getMessagesByDate(String date) {
         List<String> messages = new ArrayList<String>();
-        int lastIndex = log.lastIndexOf(date,0);
-        while(lastIndex!=-1){
-            messages.add(log.substring(lastIndex,log.indexOf(";\n",lastIndex)));
+        int start = 0;
+        int firstIndex = log.indexOf(date,start);
+        while(firstIndex > -1){
+            System.out.println(firstIndex);
+            messages.add(log.substring(firstIndex,log.indexOf(";\n",firstIndex)));
+            firstIndex = log.indexOf(date, start);
+            start = firstIndex+1;
         }
         return messages;
     }
