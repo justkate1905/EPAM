@@ -6,14 +6,12 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Katerina on 13.03.2017.
- */
+
 public class ImageSearcherTest {
 
     @Test
     public void testSplitingToSentence(){
-        int numOfSentences = 0;
+        int numOfSentences;
         ImageSearcher parser = new ImageSearcher();
         String text = "Hello. Second sentence. Third sentence.";
         numOfSentences = parser.splitToSentences(text).size();
@@ -25,7 +23,5 @@ public class ImageSearcherTest {
         ImageSearcher searcher = new ImageSearcher();
         searcher.getArticle();
     }
-
-
 
 }
