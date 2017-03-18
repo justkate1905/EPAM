@@ -24,4 +24,13 @@ public class ImageSearcherTest {
         searcher.getArticle();
     }
 
+    @Test
+    public void testFindingSentenceWithImage() throws IOException {
+        ImageSearcher searcher = new ImageSearcher();
+        String s = "В электронах (Рис. 5) свободные пространства расположены между элементарными трубками, а элементарные трубки состоят из элементарных зарядов противоположного знака.";
+        assertEquals(true, searcher.findSentencesWithImages(s));
+    }
+
+
+
 }

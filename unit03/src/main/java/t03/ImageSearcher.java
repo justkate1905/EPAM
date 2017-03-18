@@ -5,6 +5,7 @@ import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ImageSearcher {
@@ -31,12 +32,21 @@ public class ImageSearcher {
     }
 
 
-    public void checkForImageSequence() {
+    public void checkForRightImageSequence() {
 
     }
 
-    public void findSentencesWithImages(String line) {
-        String pattern = "";
+
+    public void markSentenceWithMark() {
+
+    }
+
+    public boolean findSentencesWithImages(String sentence) {
+        Matcher matcher = patternForRef.matcher(sentence);
+        if (!matcher.find()) {
+            return false;
+        }
+        return true;
     }
 
     public List<String> splitToSentences(String text) {
