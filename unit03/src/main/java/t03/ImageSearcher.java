@@ -15,16 +15,21 @@ public class ImageSearcher {
 
     public static final Pattern patternForNumber = Pattern.compile("\\d+");
 
+    public static StringBuilder html = new StringBuilder();
+
     private final String path = "Article.html";
 
 
-    public List<String> getArticle() throws IOException {
+    public List<String> getLinesOfArticle() throws IOException {
         List<String> article = new ArrayList<String>();
+
         FileReader fileReader = new FileReader(path);
+
         BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-        String line ;
-        while ((line = bufferedReader.readLine())!= null) {
+        String line;
+
+        while ((line = bufferedReader.readLine()) != null) {
             article.add(line);
         }
         return article;
@@ -36,9 +41,30 @@ public class ImageSearcher {
 
     }
 
+    public List<String> getOnlyBodyWithArticle() throws IOException {
+        List<String> body = new ArrayList<String>();
+        int index = 0;
+        try {
+            List<String> article = getLinesOfArticle();
+            for (int i = 0; i < article.size(); i++) {
+                if (article.get(i).contains("<body>")) {
+                    index = i;
+                    break;
+                }
+            }
+            for (int i = index; i < article.size(); i++) {
+                body.add(article.get(i));
+            }
+        } catch (IOException e) {
+            e.getMessage();
+        }
+        return body;
+    }
 
-    public void markSentenceWithMark() {
-
+    public void markSentenceWithMark(String sentence) {
+        html.append("<b>")
+                .append(sentence)
+                .append("</b>");
     }
 
     public boolean findSentencesWithImages(String sentence) {
@@ -53,6 +79,7 @@ public class ImageSearcher {
         List<String> sentences = new ArrayList<String>();
 
         BreakIterator iterator = BreakIterator.getSentenceInstance(Locale.getDefault());
+
         iterator.setText(text);
 
         int start = iterator.first();
