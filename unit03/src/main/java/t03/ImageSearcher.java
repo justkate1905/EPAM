@@ -22,7 +22,7 @@ public class ImageSearcher {
 
 
     private final String inputFile = "Article.html";
-    private final String outputFile = "MarkedArticle.html";
+    private final String outputFile = "MarkedArticle.txt";
 
 
     public List<String> getLinesOfArticle() {
