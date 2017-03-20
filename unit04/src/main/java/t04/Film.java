@@ -73,7 +73,7 @@ public class Film implements Serializable {
         return nameOfFilm;
     }
 
-    public String FilmInfo() {
+    public String filmInfo() {
         StringBuilder info = new StringBuilder();
 
         info.append("Main actors: \n");

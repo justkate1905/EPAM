@@ -23,12 +23,12 @@ public class Films implements Serializable {
 
     }
 
-    public static List<Film> deserialize(String path) throws IOException, ClassNotFoundException {
+    public static ArrayList<Film> deserialize(String path) throws IOException, ClassNotFoundException {
         FileInputStream inputStream = new FileInputStream(path);
         List<Film> filmsList = new ArrayList<Film>();
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            filmsList = (ArrayList<Film>) objectInputStream.readObject();
+            filmsList = (List<Film>) objectInputStream.readObject();
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -38,7 +38,7 @@ public class Films implements Serializable {
             e.printStackTrace();
         }
 
-        return filmsList;
+        return (ArrayList<Film>) filmsList;
     }
 
 }
