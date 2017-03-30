@@ -1,6 +1,5 @@
 package t02;
 
-import org.intellij.lang.annotations.Language;
 
 import java.io.*;
 import java.util.Locale;
