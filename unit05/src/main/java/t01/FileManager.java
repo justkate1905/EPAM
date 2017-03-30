@@ -37,11 +37,16 @@ public class FileManager {
     }
 
     public void goToDirectory(String src) {
-        currentPath = currentPath+"\\"+src;
+        File file = new File(currentPath+"\\"+src);
+        if(file.exists()){
+            if(file.isDirectory()){
+                currentPath = currentPath+"\\"+src;
+            }
+        }
     }
 
     public void goUp(){
-
-
+        int lastIndex = currentPath.lastIndexOf("\\");
+        currentPath = currentPath.substring(0,lastIndex);
     }
 }

@@ -38,8 +38,9 @@ public class FileManagerTest {
 
     @Test
     public void testThatWeCanGoToTheParentDirectory(){
+        fileManager.goToDirectory("src");
         fileManager.goUp();
-        assertTrue(fileManager.currentPath.contains("src"));
+        assertFalse(fileManager.currentPath.contains("src"));
     }
 
 }
