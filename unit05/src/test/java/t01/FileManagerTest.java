@@ -61,7 +61,7 @@ public class FileManagerTest {
     public void testThatWeCanCreateTextFile() {
         fileManager.goToDirectory("src");
         fileManager.goToDirectory("resource");
-        fileManager.create("newFile", "txt");
+        fileManager.create("newFile.txt");
         assertFalse(fileManager.getRequiredList("./", ALL).contains("newFile.txt"));
     }
 
@@ -69,14 +69,14 @@ public class FileManagerTest {
     public void testThatWeCantCreateExistingFile() {
         fileManager.goToDirectory("src");
         fileManager.goToDirectory("resource");
-        int result = fileManager.create("newFile", "txt");
+        int result = fileManager.create("newFile.txt");
         assertThat(result, is(1));
     }
 
     @Test
     public void testThatWeCantCreateAnotherFile() {
         fileManager.goToDirectory("src");
-        fileManager.create("newFile", "tsx");
+        fileManager.create("newFile.tsx");
         assertFalse(fileManager.getRequiredList("./", ALL).contains("newFile.tsx"));
     }
 

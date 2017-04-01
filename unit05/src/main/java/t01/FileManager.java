@@ -70,17 +70,19 @@ public class FileManager {
         currentPath = file.getParentFile().toString();
     }
 
-    public int create(String name, String type) {
-        if (!type.equals("txt")) {
+    public int create(String name) {
+        if (!name.endsWith(".txt")) {
             System.out.println("You can create only text files");
             return -1;
         }
-        final String pathname = currentPath + "\\" + name + "." + type;
+        final String pathname = currentPath + "\\" + name;
         File file = new File(pathname);
 
         if (!file.exists()) {
             try {
                 file.createNewFile();
+                System.out.println("File "+ name+" was created!");
+
                 return 0;
 
             } catch (IOException e) {
@@ -107,6 +109,7 @@ public class FileManager {
                 return -1;
             }
             file.delete();
+            System.out.println("File "+ nameOfFile+" was deleted!");
             return 0;
 
         } else {
