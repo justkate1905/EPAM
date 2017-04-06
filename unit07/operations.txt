@@ -1,0 +1,9 @@
+From: 1 to: 4 amount: 100
+From: 3 to: 2 amount: 50
+From: 4 to: 1 amount: 50
+From: 2 to: 3 amount: 130
+From: 2 to: 1 amount: 100
+From: 4 to: 2 amount: 500
+From: 4 to: 3 amount: 500
+
+
