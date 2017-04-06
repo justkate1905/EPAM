@@ -6,16 +6,17 @@ import java.util.Properties;
 
 @SuppressWarnings("ALL")
 public class PropertiesReader {
+
+    static Properties properties = new Properties();
+
     public static synchronized String getValue(File propertiesFile, String key) {
         try {
-
-            FileInputStream fileInputStream = new FileInputStream(propertiesFile);
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "UTF-8");
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-            Properties properties = new Properties();
-
-            properties.load(bufferedReader);
+            if (properties.isEmpty()) {
+                FileInputStream fileInputStream = new FileInputStream(propertiesFile);
+                InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                properties.load(bufferedReader);
+            }
 
             String value = properties.getProperty(key);
 
@@ -24,11 +25,12 @@ public class PropertiesReader {
             } else {
                 return value;
             }
-        } catch (IOException e) {
-            return "Property file not found";
-        } catch (MissingResourceException e) {
-            return e.getMessage();
-        }
-    }
 
+            } catch (IOException e) {
+                return "Property file not found";
+            } catch (MissingResourceException e) {
+                return e.getMessage();
+            }
+
+    }
 }
