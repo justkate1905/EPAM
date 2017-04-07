@@ -3,6 +3,7 @@ package t03;
 /**
  * Created by Katerina on 06.04.2017.
  */
+
 import java.util.Random;
 
 public class UserResourceThread {
@@ -42,6 +43,8 @@ class IntegerSetterGetter extends Thread {
     private SharedResource resource;
     private boolean run;
 
+    private boolean lastWrite = false;
+
     private Random rand = new Random();
 
     public IntegerSetterGetter(String name, SharedResource resource) {
@@ -60,7 +63,7 @@ class IntegerSetterGetter extends Thread {
         try {
             while (run) {
                 action = rand.nextInt(1000);
-                if (action % 2 == 0) {
+                if (action % 2 == 0 && lastWrite) {
                     getIntegersFromResource();
                 } else {
                     setIntegersIntoResource();
@@ -76,13 +79,13 @@ class IntegerSetterGetter extends Thread {
         Integer number;
 
         synchronized (resource) {
-            System.out.println("Поток " + getName()
-                    + " хочет извлечь число.");
+            System.out.println("Поток " + getName() + " хочет извлечь число.");
             number = resource.getELement();
+            lastWrite = false;
             while (number == null) {
-                System.out.println("Поток " + getName()
-                        + " ждет пока очередь заполнится.");
+                System.out.println("Поток " + getName() + " ждет пока очередь заполнится.");
                 resource.wait();
+
                 System.out
                         .println("Поток " + getName() + " возобновил работу.");
                 number = resource.getELement();
@@ -97,8 +100,9 @@ class IntegerSetterGetter extends Thread {
         synchronized (resource) {
 
             resource.setElement(number);
-            System.out.println("Поток " + getName() + " записал число "
-                    + number);
+            lastWrite = true;
+            System.out.println("Поток " + getName() + " записал число " + number);
+
             resource.notify();
         }
     }
