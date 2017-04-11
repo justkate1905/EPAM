@@ -10,8 +10,7 @@ import java.util.Map;
 public class PropertiesReader {
 
     public Map<String,String> readProperty(String path) throws IOException {
-        File prop = new File(path);
-        FileInputStream fileInputStream = new FileInputStream(prop);
+        FileInputStream fileInputStream = new FileInputStream(path);
         InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
