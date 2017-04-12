@@ -260,11 +260,11 @@ public class CustomLinkedList<T> implements List<T> {
         private Node<T> next;
         private T value;
 
-        public Node(T value) {
+        Node(T value) {
             this.value = value;
         }
 
-        public boolean hasNext() {
+        boolean hasNext() {
             return next != null;
         }
 
