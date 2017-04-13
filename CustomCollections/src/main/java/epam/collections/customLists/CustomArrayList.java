@@ -204,7 +204,7 @@ public class CustomArrayList<T> implements List<T> {
                 if(!hasPrevious()){
                     throw new NoSuchElementException();
                 }
-                return (T) data[current - 1];
+                return (T) data[current--];
             }
 
             @Override

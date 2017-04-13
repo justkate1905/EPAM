@@ -46,6 +46,9 @@ public class CustomLinkedList<T> implements List<T> {
 
             @Override
             public T next() {
+                if(!hasNext()){
+                    throw new NoSuchElementException();
+                }
                 current = current.next;
                 return current.value;
             }
@@ -223,7 +226,7 @@ public class CustomLinkedList<T> implements List<T> {
                 if(!hasPrevious()){
                     throw new NoSuchElementException();
                 }
-                return getNodeByIndex(current - 1).value;
+                return getNodeByIndex(current--).value;
             }
 
             @Override
