@@ -64,13 +64,14 @@ public class CustomLinkedList<T> implements List<T> {
             throw new IndexOutOfBoundsException();
         }
         Node<T> current = head;
+        Object[] array = a;
         int index = 0;
         while (current.hasNext()) {
             current = current.next;
-            a[index] = (T1)current.value;
+            array[index] = current.value;
             index += 1;
         }
-        return a;
+        return (T1[])array;
     }
 
     @Override
@@ -153,11 +154,19 @@ public class CustomLinkedList<T> implements List<T> {
         if (index < 0 || index >= size){
             throw new IndexOutOfBoundsException();
         }
-        Node<T> previous = getNodeByIndex(index - 1);
+        Node<T> previous;
         Node<T> insertNode = new Node<T>(element);
 
-        insertNode.next = previous.next;
-        previous.next = insertNode;
+        if (index != 0) {
+            previous = getNodeByIndex(index - 1);
+            insertNode.next = previous.next;
+            previous.next = insertNode;
+        }
+        else{
+            insertNode.next = head.next;
+            head.next = insertNode;
+        }
+
 
         size++;
     }
