@@ -1,9 +1,7 @@
 package epam.collections.customLinkedList;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.nio.file.NoSuchFileException;
+import java.util.*;
 
 public class CustomLinkedList<T> implements List<T> {
 
@@ -45,6 +43,7 @@ public class CustomLinkedList<T> implements List<T> {
             public boolean hasNext() {
                 return current.hasNext();
             }
+
             @Override
             public T next() {
                 current = current.next;
@@ -52,6 +51,7 @@ public class CustomLinkedList<T> implements List<T> {
             }
         };
     }
+
     @Override
     public Object[] toArray() {
         Object[] array = new Object[size];
@@ -60,7 +60,7 @@ public class CustomLinkedList<T> implements List<T> {
 
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        if (a.length < size){
+        if (a.length < size) {
             throw new IndexOutOfBoundsException();
         }
         Node<T> current = head;
@@ -71,7 +71,7 @@ public class CustomLinkedList<T> implements List<T> {
             array[index] = current.value;
             index += 1;
         }
-        return (T1[])array;
+        return (T1[]) array;
     }
 
     @Override
@@ -145,13 +145,14 @@ public class CustomLinkedList<T> implements List<T> {
             throw new IndexOutOfBoundsException();
         }
 
+        T currentElem = getNodeByIndex(index).value;
         getNodeByIndex(index).value = element;
-        return getNodeByIndex(index).value;
+        return currentElem;
     }
 
     @Override
     public void add(int index, T element) {
-        if (index < 0 || index >= size){
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
         Node<T> previous;
@@ -161,8 +162,7 @@ public class CustomLinkedList<T> implements List<T> {
             previous = getNodeByIndex(index - 1);
             insertNode.next = previous.next;
             previous.next = insertNode;
-        }
-        else{
+        } else {
             insertNode.next = head.next;
             head.next = insertNode;
         }
@@ -198,49 +198,63 @@ public class CustomLinkedList<T> implements List<T> {
     @Override
     public ListIterator<T> listIterator(int index) {
         return new ListIterator<T>() {
+            int current = index;
+
             @Override
             public boolean hasNext() {
-                return false;
+                return current < size;
             }
 
             @Override
             public T next() {
-                return null;
+                if(!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                return getNodeByIndex(current++).value;
             }
 
             @Override
             public boolean hasPrevious() {
-                return false;
+                return current > 0;
             }
 
             @Override
             public T previous() {
-                return null;
+                if(!hasPrevious()){
+                    throw new NoSuchElementException();
+                }
+                return getNodeByIndex(current - 1).value;
             }
 
             @Override
             public int nextIndex() {
-                return 0;
+                if(!hasNext()){
+                    throw new NoSuchElementException();
+                }
+                return current + 1;
             }
 
             @Override
             public int previousIndex() {
-                return 0;
+                if(!hasPrevious()){
+                    throw new NoSuchElementException();
+                }
+                return current - 1;
             }
 
             @Override
             public void remove() {
-
+                CustomLinkedList.this.remove(getNodeByIndex(current--));
             }
 
             @Override
-            public void set(T t) {
-
+            public void set(T element) {
+                getNodeByIndex(index).value = element;
             }
 
             @Override
-            public void add(T t) {
-
+            public void add(T element) {
+                CustomLinkedList.this.add(current++, element);
             }
         };
     }
