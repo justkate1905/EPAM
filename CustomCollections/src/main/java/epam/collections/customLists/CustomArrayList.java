@@ -138,37 +138,66 @@ public class CustomArrayList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        return false;
+        for (Object o : c) {
+            if(!contains(o)){
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        return false;
+        for (T elem : c) {
+            add(elem);
+        }
+        return true;
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-        return false;
+        int insertIndex = index;
+        for (T elem : c) {
+            add(insertIndex, elem);
+            insertIndex++;
+        }
+        return true;
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        for (Object o : c) {
+            remove(o);
+        }
+        return true;
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        return false;
+        Object[] currentList = toArray();
+        int startSize = size;
+
+        for (Object o : currentList) {
+            if(!c.contains(o)){
+                remove(o);
+            }
+        }
+        return size < startSize;
     }
 
     @Override
     public int indexOf(Object o) {
-        return 0;
+        for (int i = 0; i < size; i++) {
+            if(data[i].equals(o)){
+                return i;
+            }
+        }
+        throw new NoSuchElementException();
     }
 
     @Override
     public int lastIndexOf(Object o) {
-        return 0;
+        throw new UnsupportedOperationException();
     }
 
     @Override
